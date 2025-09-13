@@ -1,17 +1,13 @@
 import dotenv from 'dotenv'
-import { fileURLToPath } from 'url';
-import path from 'path';
-import connectDB from './db/index.js';
-import app from './app.js'  // Add this import
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Configure dotenv with absolute path
 dotenv.config({
-    path: path.resolve(__dirname, '../.env')
+    path: '../.env'
 });
 
+import { initCloudinary } from './utils/cloudinary.js';
+import connectDB from './db/index.js';
+import app from "./app.js"
+
+initCloudinary()
 connectDB()
 .then(() => {
     app.listen(process.env.PORT || 8000, () => {
